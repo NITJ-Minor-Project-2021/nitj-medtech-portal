@@ -9,32 +9,13 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon_io (2)/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    
     <style>
-  /* Top-section */
         .top{
             position: sticky;
             top: 0; 
             background-color: white;
         }
-
-        .logo-image{
-        width: 7%;
-        height: 102px;
-        padding-left: 20px;
-        float: left;
-        padding-top: 10px;
-    }
-
-    .logo-text{
-        padding-top: 20px;
-        color: rgb(59 130 246 );
-        margin-left: 130px;
-        padding-top: 33px;
-    }
-
-
-       nav{
+        nav{
         background-color: black;
         color: white;
         padding: 10px;
@@ -46,78 +27,88 @@
         padding-top: 0px;
         display: flex;
         overflow: hidden;
-        margin-bottom: 4px;  
-       }
-
-       nav a{
+        margin-bottom: 4px;
+      
+       
+    }
+    nav a{
         text-decoration: none;
         color: white;
         margin: 8px;
        
-       }
+    }
    
-       /* Left-Section */
-
-    .left{
+    .Fixed{
         box-sizing: border-box;
        
         float: left;
         height: 100vh;
         width: 300px;
+        /* background-color: sandybrown; */
         margin-top: 0px;
         margin-left: 100px;
         padding: 0;
         line-height: 30px;
        
     }
-
-    .left li a{
+    li a{
         text-decoration: none;
         color: black;
         
     }
-
-    .left li{
+    li{
         list-style: circle;
     }
-
-    .left a:hover{
-        color: rgba(84, 84, 254, 0.838);
-        text-decoration: underline;
-    }
-
-    /* Right-Section */
-
-    .Right{
+    .Movable{
         box-sizing: border-box;
         margin-top: 0px;
         margin-left: 420px;
         margin-right: 400px;
         padding-top: 10px;
     }
-
-    .home-link{ 
+    .home{
+        /* border: 1px solid ; */
         box-shadow: .5px .5 0 black;  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
-
-    .Right .home-link a{
+    .logo-image{
+        width: 7%;
+        height: 102px;
+        padding-left: 20px;
+        float: left;
+        padding-top: 10px;
+        
+       
+    }
+    .row-logo{
+        padding-left: 20px;
+        padding-top: 10px;
+        border: .5px solid grey;
+    }
+    .logo-text{
+        padding-top: 20px;
+        color: rgb(59 130 246 );
+        margin-left: 130px;
+        padding-top: 33px;
+    }
+    .Fixed a:hover{
+        color: rgba(84, 84, 254, 0.838);
+        text-decoration: underline;
+    }
+    .Movable .home a{
         text-decoration: none;
     }
-
-    .Right .home-link a:hover{
+    .Movable .home a:hover{
         color: black(84, 84, 254, 0.838);
         text-decoration: underline;
     }
-
     .active-link {
-    color: rgba(84, 84, 254, 0.838); 
+    color: rgba(84, 84, 254, 0.838); /* You can set your desired active link color here */
   }
 
     </style>
    
 </head>
 <body>
-  <!-- Heading  -->
     <div class="top" >
     
         <img class="logo-image" src="https://upload.wikimedia.org/wikipedia/en/thumb/9/96/Logo_of_NIT_Jalandhar.png/220px-Logo_of_NIT_Jalandhar.png" alt="logo"> 
@@ -125,7 +116,7 @@
             <h3>  Dispensary</h3>
             <h5>Dr B R Ambedkar National Institute of Technology Jalandhar</h5>
         </div>
-    <!-- Navbar -->
+    
     <div class="main">
         <nav>
             <a href="#" >NITJ Home </a>
@@ -136,9 +127,7 @@
   </div>
 
 
-  <!-- Left-section -->
-
-<div class="left">
+<div class="Fixed">
 <h3 style="margin: 5px; color: red; padding-left: 10px;">Services</h3>
 <ul>
     <li><a href="#" id="link1" >Guidelines</a></li>
@@ -152,6 +141,7 @@
     <li><a href="#" id="link9">Photo Gallery</a></li>
     <li><a href="#" id="link10">Safety precaution</a></li>
     
+
 </ul>
 <h3 style="margin: 5px; color: red; padding-left: 10px;">Recognised Hospitals</h3>
 <ul>
@@ -161,11 +151,8 @@
     <li><a href="">Safety precaution</a></li>
 </ul>
 </div>
-
-<!-- Right-content -->
-
-<div class="Right">
-   <div class="home-link">
+<div class="Movable">
+   <div class="home">
     <a href="#" id="link11" >Home</a>
 </div>
 <br>
@@ -199,6 +186,7 @@
     link8.classList.remove('active-link');
     link9.classList.remove('active-link');
     link10.classList.remove('active-link');
+    link11.classList.remove('active-link');
   }
 
     link1.addEventListener('click', function() {
@@ -255,6 +243,8 @@
     });
     link11.addEventListener('click', function() {
       contentContainer.textContent = "quasi eligendi excepturi, incidunt nobis maiores illum sequi ad dolorum, alias, ipsum facilis itaque optio. Assumenda veniam repudiandae autem dignissimos tempore itaque! Aperiam maiores doloremque ducimus deserunt reprehenderit quos reiciendis. Exercitationem dolores aut accusamus quo dolor cupiditate? Recusandae quibusdam fugiat eos?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro alias ea inventore consequatur nesciunt rerum ratione optio? Nesciunt beatae libero exercitationem a aperiam, totam alias aspernatur deleniti odit similique molestiae.100";
+      resetActiveLinks();
+    link11.classList.add('active-link');
     });
   </script>
   
