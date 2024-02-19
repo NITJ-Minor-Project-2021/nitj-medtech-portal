@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Reports</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            color: #3498db;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            color: #555;
+        }
+
+        a.back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #fff;
+            background-color: #3498db;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a.back-link:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Patient Reports for <%= username %></h1>
+
+    <% if (reports.length > 0) { %>
+        <ul>
+            <% reports.forEach(function(report) { %>
+                <li>
+                    <a href="/uploads/<%= report.filename %>"><%= report.filename %></a>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No reports found for this patient.</p>
+    <% } %>
+    <a href="/dashboard" class="back-link">Back to Home</a>
+</body>
+</html>

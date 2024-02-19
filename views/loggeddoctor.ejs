@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispensary | NIT JALANDHAR</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io (2)/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon_io (2)/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon_io (2)/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <!-- Navigation Bar -->
+    <div class="top" >
+        <img class="logo-image" src="https://upload.wikimedia.org/wikipedia/en/thumb/9/96/Logo_of_NIT_Jalandhar.png/220px-Logo_of_NIT_Jalandhar.png" alt="logo"> 
+        <div class="logo-text" >
+            <h3>  Dispensary</h3>
+            <h5>Dr B R Ambedkar National Institute of Technology Jalandhar</h5>
+        </div>
+        <div class="main">
+          <nav>
+              <li style="list-style: none;"><a href="https://www.nitj.ac.in/"  style="color: #f5f5f5; ">NITJ Home &nbsp;&nbsp;&nbsp; </a></li>
+                      <li style="list-style: none;"><a href="#" class="modal-trigger" data-target="modal-account"><span style="border-left: 1px solid white; padding: 6px; color: #f5f5f5;">&nbsp;&nbsp;&nbsp;Contact us&nbsp;&nbsp;&nbsp;</span> </a></li>
+                      <li class="log-doctor" style="list-style: none; " ><a href="/logout" id="logout1" ><span style="border-left: 1px solid white; padding: 6px; color: #f5f5f5;">&nbsp;&nbsp;&nbsp;Logout&nbsp;&nbsp;&nbsp;</span></a></li>
+          </nav>
+      </div>
+      </div>
+
+
+      <!-- Fixed Left Block -->
+<div class="Fixed">
+ <h3 style="margin: 5px; color: red; padding-left: 0px;">Services</h3>
+  <ul>
+    <div class="services">
+     <li><a href="#" onclick="changeContent('content1')">Facilities</a></li>
+     <li><a href="#" onclick="changeContent('content2')"> Medical Staff</a></li>
+     <li><a href="#" onclick="changeContent('content3')">Timing</a></li>
+     <li><a href="#" onclick="changeContent('content5')">Consultant</a></li>
+     <li><a href="#" onclick="changeContent('content6')">Special Camps</a></li>
+     <!-- <li><a href="#" onclick="changeContent('content7')">Photo Gallery</a></li> -->
+     <li><a href="#" onclick="changeContent('content8')" >Guidelines</a></li>
+     <li class="log-doctor" ><a href="/view-appointments" id="myAnchor2" >View Appointments</a></li>
+     <li class="log-doctor" ><a href="#" onclick="changeContent('content9')">Create Prescription</a></li>
+     <li class="log-doctor" ><a href="#" onclick="changeContent('content13')" >Upload Reports</a></li>
+     <li class="log-doctor" ><a href="#" onclick="changeContent('content15')" >Change availability</a></li>
+     <li class="log-doctor" ><a href="#" onclick="changeContent('content16')" >Upload Guidelines</a></li>
+    </div>    
+  </ul>
+ <h3 style="margin: 5px; color: red; padding-left: 0px;">Recognised Hospitals</h3>
+ <div class="RecognisedHospitals">
+  <ul>
+   <li><a href="https://amcarehospital.com/" target="_blank">Amcare Hospital Zirakpur</a></li>
+   <li><a href="http://www.jantacarehospital.com/" target="_blank">Janta Care Hospital</a></li>
+   <li><a href="https://sanjeevanhospitalamritsar.com/" target="_blank">Sanjeevan Hospital Amritsar</a></li>
+   <li><a href="https://www.dmch.edu/" target="_blank">Dayanand Hospital Ludhiana</a></li>
+  </ul>
+ </div>
+</div>
+
+
+<div class="home" style="margin-left: 420px; margin-top: 14px;">
+    <a href="#" onclick="changeContent('initial-content')" >Home</a>
+</div>
+<br>
+
+<!-- Guideline Scroll-box -->
+<div style="float: right; margin-right: 100px; border: 1px solid #000; padding: 10px; width: 250px;">
+  <h4 style="text-decoration: underline; text-align: center;">Health corner</h4>
+  <marquee direction="up" scrollamount="2" behavior="scroll" height="200">
+      <% if (guidelines.length > 0) { %>
+          <ul>
+              <% guidelines.forEach(function(guideline) { %>
+                  <li>
+                      <a href="/guidelines/<%= guideline.filename %>" style="color: blue; text-decoration: underline;">
+                          <%= guideline.filename %>
+                      </a>
+                  </li>
+              <% }); %>
+          </ul>
+      <% } else { %>
+          <p>No guidelines available.</p>
+      <% } %>
+  </marquee>
+</div>
+
+
+<!-- Dispensary information -->
+
+<div class="Movable content-section" id="initial-content" style="text-align: justify;">
+  <img src="https://www.nitj.ac.in/images/menu_content/dsc_0620.jpg" style="float:right; padding-left:15px; width:450px">
+  The dispensary is the heartbeat of the institute which provide Treatment for different diseases and also provide first aid to the injured, and also arranges different awareness camp Like cardiac camp, BMD camp etc. Different updates are been circulated for prevention from the seasonal disease.
+  <br> <br> All the National Programmes such as Pulse polio, and Immunization programmes are organized with the help of Local health Authorities. <br><br>
+  Dispensary is also equipped with the Pathological lab to carry out different investigations.  In case of medical emergency, the ambulance van is available 24 hours for taking patient(s) to other hospitals for the required treatment.
+</div>
+
+
+<!-- Facilities Details -->
+
+<div class="Movable content-section" id="content1" style="text-align: justify;">
+  <h1>Facilities</h1>
+  <br>
+  <h4 style="cursor:grabbing;">➡️OPD Services</h4>
+  <p>Patients are registered at the reception and are seen on first come, first serve basis, however out of turn consultation may be provided in case of emergency and senior citizen. Patients have the right to consult any doctor. In OPD, clinical consultation is provided to patients which includes history taking, clinical examination, diagnosis and providing prescription to patients besides advising laboratory tests in some cases. OPD has a waiting hall with chairs, public utilities like drinking water and toilets. Sub waiting areas are available in front of individual consultation rooms. Wheel chairs, trolleys and attendants are there to help very sick patients.</p>
+
+  <h4 style="cursor:grabbing;">➡️IPD DayCare</h4>
+  <ul>
+    <li style="list-style:disc;">Dressing</li>
+    <li style="list-style:disc;">Minor OT</li>
+    <li style="list-style:disc;">First-Aid</li>
+    <li style="list-style:disc;">Ventilation</li>
+  </ul>
+  <h4 style="cursor:grabbing;">➡️Basic Test</h4>
+  <ul>
+    <li style="list-style:disc;">CBC</li>
+    <li style="list-style:disc;">Blood Group and Sugar Test</li>
+    <li style="list-style:disc;">Urine Test</li>
+    <li style="list-style:disc;">Dengi-Maleria antigen</li>
+    <li style="list-style:disc;">Urine test</li>
+  </ul>
+  <h4 style="cursor:grabbing;">➡️24*7 Ambulance Service</h4>
+  <p>24 hours Basic Life Support Ambulance available. Patients are transported from home (on campus) to NIT hospital and patients referred by emergency duty doctor to empanelled hospital for specialized care.</p>
+</div>
+
+
+<!-- Doctor Details -->
+
+<div class="Movable content-section" id="content2" style="text-align: justify;">
+   <div class="row">
+       <div class="col">
+          <b>Name</b> 
+       </div>
+       <div class="col">
+           <b>Designation</b> 
+        </div>
+        <div class="col">
+           <b>Qualifications</b> 
+        </div>
+        <div class="col">
+           <b>Email</b> 
+        </div>
+     </div>
+   
+     <div class="row ">
+       <div class="col">
+          Dr Tarun Sehgal
+       </div>
+       <div class="col">
+           Medical Officer 
+        </div>
+        <div class="col">
+           MBBS
+        </div>
+        <div class="col">
+           <a href="mailto: sehgalt@nitj.ac.in">sehgalt@nitj.ac.in</a>
+        </div>
+     </div>
+   
+     <div class="row">
+       <div class="col">
+           Dr Sitakshi Bhatia
+       </div>
+       <div class="col">
+           Medical Officer 
+        </div>
+        <div class="col">
+           MBBS 
+        </div>
+        <div class="col">
+           <a href="mailto: bhatias@nitj.ac.in">bhatias@nitj.ac.in</a>
+        </div>
+     </div>
+   
+     <div class="row ">
+       <div class="col">
+           Dr Gurnam Singh 
+       </div>
+       <div class="col">
+           Sr.Technical Assistant
+        </div>
+        <div class="col">
+           PhD
+        </div>
+        <div class="col">
+          <a href="mailto: gurnams@nitj.ac.in"> gurnams@nitj.ac.in</a>
+        </div>
+     </div>
+   
+     <div class="row">
+       <div class="col">
+           Ms Sarita
+       </div>
+       <div class="col">
+           Sr. Superintendent
+        </div>
+        <div class="col">
+           
+        </div>
+        <div class="col">
+           <a href="mailto: sarita@nitj.ac.in">sarita@nitj.ac.in</a>
+        </div>
+     </div>
+   
+     <div class="row ">
+       <div class="col">
+           Ms Baljeet Kaur
+       </div>
+       <div class="col">
+           Dresser
+        </div>
+        <div class="col">
+           
+        </div>
+        <div class="col">
+          <a href="mailto: baljeetk@nitj.ac.in">baljeetk@nitj.ac.in</a>
+        </div>
+     </div>
+   
+     <div class="row">
+       <div class="col">
+           Ms Sukhjit Kaur
+       </div>
+       <div class="col">
+           Nurse
+        </div>
+        <div class="col">
+          
+        </div>
+        <div class="col">
+           <a href="mailto: sukhjitk@nitj.ac.in">sukhjitk@nitj.ac.in</a>
+        </div>
+     </div>
+</div>
+
+<!-- Dispensary Timings -->
+<div class="Movable content-section" id="content3" style="text-align: justify;">
+  <div id="content-inner-inner" class="content-inner-inner inner">
+      <h1 class="title">Timings</h1>
+     <table cellspacing="10" cellpadding="10" border="1">
+         <tr>
+           <th>Registration/OPD Timings</th>
+         </tr>
+         <tr>
+           <td valign="top" colspan="2">
+             <p align="justify"><b>On Working Days</b></p>
+             <ul>
+               <li>8:00 am to 8:00 pm</li>
+             </ul>
+   
+             <p align="justify"><b>On Saturday</b></p>
+             <ul>
+               <li>9:00 am to 4:15 pm (Registration Timings)</li>
+               <li>9:00 am to 5:00 pm (OPD Timings)</li>
+             </ul>
+   
+             <p align="justify"><b>On Sunday/During Holidays</b></p>
+             <ul>
+               <li>9:00 am to 2:00 pm</li>
+             </ul>
+           </td>
+         </tr>
+         <tr>
+           <th colspan="2">Emergency Duty Hours (Doctors)</th>
+         </tr>
+         <tr>
+           <td valign="top" colspan="2">
+             <ul>
+               <li>Emergency duty hours From 8:00 am to 2:00 pm (NITJ Doctor + Outsourced Doctor)</li>
+               <li>From 2:00 pm to 8:00 pm (NITJ Doctor on call + Outsourced Doctor physically present)</li>
+               <li>From 8:00 pm to 8:00 am of the next day (NITJ Doctor on call + Outsourced agency Doctor Physically Present)</li>
+             </ul>
+           </td>
+         </tr>
+         <tr>
+           <th colspan="2">Specialist Appointments</th>
+         </tr>
+         <tr>
+           <td valign="top" colspan="2">
+             <ul>
+               <li><b>Evening:</b> 5:30 pm Onwards</li>
+             </ul>
+           </td>
+         </tr>
+         <tr>
+           <th colspan="2">Laboratory Tests</th>
+         </tr>
+         <tr>
+           <td valign="top" colspan="2">
+             <p align="justify"><b>In Working Days</b></p>
+             <ul>
+               <li><b>Morning:</b> 8.00 am to 1.00 pm</li>
+               <li><b>Afternoon:</b> 2.00 pm to 5.00 pm</li>
+               <li><b>Sample Collection:</b>
+                 <ul>
+                   <li>NABL Accredited Laboratory: 8:00 AM to 7:00 PM</li>
+                   <li>NITJ Laboratory: 8:00 AM to 11:30 AM</li>
+                 </ul>
+               </li>
+             </ul>
+           </td>
+         </tr>
+         <tr>
+           <th colspan="2">National Holidays</th>
+         </tr>
+         <tr>
+           <td valign="top" colspan="2">
+             <p align="justify">Hospital OPD will remain closed on 26th January, 15th August, and on 2nd October</p>
+           </td>
+         </tr>
+     </table>
+  </div>
+</div>
+   
+
+<!-- Consultant Info -->
+<div class="Movable content-section" id="content5" style="text-align: justify;">
+ <h1>Consultant Services</h1>
+ <img src="male-doctor-character-illustration-png.webp" alt="" style="width: 40%;">
+   <div style="float:right;">
+      <p style="font-size: 1.2rem; font-weight: bolder; margin-bottom: 1px;">Dr. Taniya</p>
+      <p style="font-size: 0.85rem;">Consultant Psychiartist</p>
+      <p style="font-weight: bold">Contact No: +91-XXXXXXXXX</p>
+      <p style="font-weight: bold">Timings: 12:00 - 2:00 PM (Wednesday & Saturday)</p>
+      <p>Available on call</p>
+   </div>
+</div>
+  
+<!-- Camps -->
+<div class="Movable content-section" id="content6" style="text-align: justify;">
+  <h1>Camps</h1>
+  <div id="content-region" class="content-region row nested">
+     <div id="content-region-inner" class="content-region-inner inner">
+       <a name="main-content-area" id="main-content-area"></a>
+         <div id="content-inner" class="content-inner block">
+           <div id="content-inner-inner" class="content-inner-inner inner">
+               <div id="content-content" class="content-content">
+                 <div id="view-id-special_camp-page_1" class="view view-special-camp view-id-special_camp view-display-id-page_1 view-dom-id-1366dd9b3ac277cd6b75f7f97439ba9a  views-processed">
+                   <div class="inner content">
+                     <div class="view-content">
+                           <table class="views-table cols-2">
+                             <thead>
+                              <tr>
+                                 <th class="views-field views-field-field-iitd-splcamp-status-value">
+                                  Camp Organised          
+                                 </th>
+                                 <th class="views-field views-field-field-iitd-el-ondate-value">
+                                  On Date    
+                                 </th>
+                               </tr>
+                             </thead>
+                             <tbody>
+                               <tr class="odd views-row-first">
+                                 <td class="views-field views-field-field-iitd-splcamp-status-value">
+                                 Pulse Polio Day          
+                                 </td>
+                                 <td class="views-field views-field-field-iitd-el-ondate-value">
+                                   <span class="date-display-single">18/09/2022</span>          
+                                 </td>
+                               </tr>
+                               <tr class="even">
+                                 <td class="views-field views-field-field-iitd-splcamp-status-value">
+                                  Pulse Polio Day          
+                                 </td>
+                                 <td class="views-field views-field-field-iitd-el-ondate-value">
+                                   <span class="date-display-single">15/09/2019</span>          
+                                 </td>
+                               </tr>
+                               <tr class="odd">
+                                 <td class="views-field views-field-field-iitd-splcamp-status-value">
+                                  Pulse Polio Day          
+                                 </td>
+                                 <td class="views-field views-field-field-iitd-el-ondate-value">
+                                   <span class="date-display-single">16/06/2019</span>          
+                                 </td>
+                               </tr>
+                               <tr class="even">
+                                 <td class="views-field views-field-field-iitd-splcamp-status-value">
+                                  Pulse Polio Day          
+                                 </td>
+                                 <td class="views-field views-field-field-iitd-el-ondate-value">
+                                  <span class="date-display-single">02/04/2017</span>          
+                                 </td>
+                               </tr>
+                               <tr class="odd">
+                                 <td class="views-field views-field-field-iitd-splcamp-status-value">
+                                  Bone Mineral Density Camp          
+                                 </td>
+                                 <td class="views-field views-field-field-iitd-el-ondate-value">
+                                   <span class="date-display-single">22/09/2014</span>         
+                                 </td>
+                               </tr>
+                               <tr class="even views-row-last">
+                                 <td class="views-field views-field-field-iitd-splcamp-status-value">
+                                  Cancer Awareness Lecture          
+                                 </td>
+                                 <td class="views-field views-field-field-iitd-el-ondate-value">
+                                  <span class="date-display-single">22/09/2014</span>          
+                                 </td>
+                               </tr>
+                             </tbody>
+                           </table>
+                       </div>
+                   </div><!-- /views-inner -->
+                 </div>                                                                   
+               </div><!-- /content-content -->
+           </div><!-- /content-inner-inner -->
+         </div><!-- /content-inner -->
+     </div><!-- /content-region-inner -->
+   </div>
+</div>
+
+  <div class="Movable content-section" id="content7" style="text-align: justify;">
+    <h1>Gallery</h1>
+    </div>
+   
+<!-- Guideline show -->
+    <div class="Movable content-section guidelines-section" id="content8">
+      <h2 class="guidelines-header">Guidelines</h2>
+      <br>
+      <% if (guidelines.length > 0) { %>
+        <ul class="guidelines-list">
+          <% guidelines.forEach(function(guideline) { %>
+            <li>
+              <a href="/guidelines/<%= guideline.filename %>" style="color: blue;">🔴 <%= guideline.filename %></a>
+            </li>
+            
+          <% }); %>
+        </ul>
+      <% } else { %>
+        <p>No guidelines available.</p>
+      <% } %>
+  </div>
+   
+
+   <!-- //Prescription -->
+
+   <div class="Movable content-section" id="content9" style="text-align: justify;">
+    <h1>Prescription</h1>
+    <form class="prescription-form" method="post" action="/prescriptions" onsubmit="preparePrescriptionData()">
+      <div class="placeholder-text">Prescription for:</div>
+  
+      <label for="patientName">Patient Name:</label>
+      <input type="text" id="patientName" name="patientName">
+  
+      <div id="medicationsContainer">
+        <!-- Medication entries will be dynamically added here -->
+      </div>
+  
+      <button type="button" onclick="addMedicationEntry()">Add Medication</button>
+  
+      <div id="labTestsContainer">
+        <!-- Lab test entries will be dynamically added here -->
+      </div>
+  
+      <button type="button" onclick="addLabTestEntry()">Add Lab Test</button>
+  
+      <div class="placeholder-text" id="currentDate">Date: </div>
+      <div class="placeholder-text" id="currentTime">Time: </div>
+  
+      <input type="submit" value="Create Prescription">
+    </form>
+  
+  </div>
+    
+
+
+  <!-- Doctor Availability Form  -->
+
+  <div class="Movable content-section" id="content15" style="text-align: justify;">
+    <h2>Doctor Availability Form</h2>
+      <form id="availabilityForm" action="/availability" method="post">
+       <label for="availability">Enter Availability:</label>
+       <input type="text" id="availability" name="availability" placeholder="Enter availability here">
+       <br>
+       <button type="submit">Submit</button>
+      </form>
+  </div>
+
+
+  <!-- File Upload -->
+  <div class="Movable content-section" id="content13" style="text-align: justify;">
+    <h1>File Upload</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" required>
+      <br>
+      <label for="file">Choose a file:</label>
+      <input type="file" name="file" id="file" accept=".pdf" required>
+      <br>
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+
+
+<!-- Guidelines Upload -->
+  <div class="Movable content-section" id="content16" style="text-align: justify;">
+      <h1>Guidelines Upload</h1>
+    <form action="/guidelines-upload" method="post" enctype="multipart/form-data">
+     <label for="file">Choose a file:</label>
+     <input type="file" name="file" id="file" accept=".pdf" required>
+     <br>
+     <button type="submit">Upload</button>
+    </form>
+  </div>
+
+
+  <!-- ACCOUNT MODAL -->
+  <div id="modal-account" class="modal" style=" width: 600px; margin-right:440px;">
+    <div class="modal-content center-align">
+      <h4>Contact us</h4><br />
+      <div class="account-details"></div>
+    </div>
+  </div>
+
+
+
+ <script>
+    function changeContent(contentId) {
+        // Hide all content sections
+        var contentSections = document.querySelectorAll(".content-section");
+        contentSections.forEach(function(section) {
+            section.style.display = "none";
+        });
+
+        // Show the selected content
+        var selectedContent = document.getElementById(contentId);
+        if (selectedContent) {
+            selectedContent.style.display = "block";
+        }
+    }
+
+    function updateDateTime() {
+      const currentDateElement = document.getElementById('currentDate');
+      const currentTimeElement = document.getElementById('currentTime');
+
+      const currentDate = new Date().toLocaleDateString();
+      const currentTime = new Date().toLocaleTimeString();
+
+      currentDateElement.textContent = `Date: ${currentDate}`;
+      currentTimeElement.textContent = `Time: ${currentTime}`;
+    }
+
+    // Call the function to update date and time immediately
+    updateDateTime();
+
+    // Call the function to update date and time every second (1000 milliseconds)
+    setInterval(updateDateTime, 1000);
+  </script>
+
+    </script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="../index.js"></script>
+  <script>
+    let medicationEntryCount = 1;
+    let labTestEntryCount = 1;
+
+    function addMedicationEntry() {
+      const medicationsContainer = document.getElementById('medicationsContainer');
+
+      const medicationEntry = document.createElement('div');
+      medicationEntry.innerHTML = `
+        <label for="medication${medicationEntryCount}">Medication ${medicationEntryCount}:</label>
+        <div class="medication-details">
+          <input type="text" id="medication${medicationEntryCount}" name="medications[${medicationEntryCount - 1}][name]" placeholder="Tablet name">
+          <input type="text" id="dosage${medicationEntryCount}" name="medications[${medicationEntryCount - 1}][dosage]" placeholder="Dosage">
+          <input type="text" id="frequency${medicationEntryCount}" name="medications[${medicationEntryCount - 1}][frequency]" placeholder="Frequency">
+          <button type="button" onclick="removeEntry(this)">Remove Medication</button>
+        </div>
+      `;
+
+      medicationsContainer.appendChild(medicationEntry);
+      medicationEntryCount++;
+    }
+
+    function addLabTestEntry() {
+      const labTestsContainer = document.getElementById('labTestsContainer');
+
+      const labTestEntry = document.createElement('div');
+      labTestEntry.innerHTML = `
+        <label for="labTest${labTestEntryCount}">Lab Test ${labTestEntryCount}:</label>
+        <input type="text" id="labTest${labTestEntryCount}" name="labTests[${labTestEntryCount - 1}]" placeholder="Lab Test name">
+        <button type="button" onclick="removeEntry(this)">Remove Lab Test</button>
+      `;
+
+      labTestsContainer.appendChild(labTestEntry);
+      labTestEntryCount++;
+    }
+
+    function removeEntry(button) {
+      const entryDiv = button.parentElement;
+      entryDiv.parentElement.removeChild(entryDiv);
+    }
+
+  </script>
+</body>
+</html>

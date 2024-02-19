@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prescriptions</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #fff;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    strong {
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Prescriptions</h1>
+  <ul>
+    <% prescriptions.forEach(prescription => { %>
+      <li>
+        <strong>Patient Name:</strong> <%= prescription.patientName %><br>
+        <strong>Prescription Date:</strong> <%= prescription.prescriptionDate.toDateString() %><br>
+        <strong>Prescription Time:</strong> <%= prescription.prescriptionTime %><br>
+        <strong>Medications:</strong>
+        <ul>
+          <% prescription.medications.forEach(medication => { %>
+            <li><%= medication.name %> - <%= medication.dosage %> - <%= medication.frequency %></li>
+          <% }) %>
+        </ul>
+        <strong>Lab Tests:</strong>
+        <ul>
+          <% prescription.labTests.forEach(test => { %>
+            <li><%= test %></li>
+          <% }) %>
+        </ul>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

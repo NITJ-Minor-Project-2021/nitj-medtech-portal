@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Appointments</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-top: 20px;
+    }
+
+    section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .today {
+      display: block;
+    }
+
+    .all {
+      display: none;
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #4caf50;
+    }
+
+    a:hover {
+      color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>View Appointments</h1>
+
+  <section>
+    <p><%= doctorname %>, here are your appointments:</p>
+    <ul class="today">
+      <% 
+        const currentDate = new Date();
+        const currentDateString = currentDate.toDateString();
+  
+        appointments.reverse().forEach(appointment => { 
+          const appointmentDate = appointment.date.toDateString();
+          if (appointmentDate === currentDateString) {
+      %>
+        <li class="today">
+          <strong>User:</strong> <%= appointment.username %><br>
+          <strong>Date:</strong> <%= appointment.date.toDateString() %><br>
+          <strong>Time Slot:</strong> <%= appointment.timeSlot %>
+        </li>
+      <% 
+          }
+        }); 
+      %>
+    </ul>
+
+    <ul class="all">
+      <% 
+        appointments.reverse().forEach(appointment => { 
+          const appointmentDate = appointment.date.toDateString();
+          if (appointment.date > currentDate) {
+      %>
+        <li class="all">
+          <strong>User:</strong> <%= appointment.username %><br>
+          <strong>Date:</strong> <%= appointment.date.toDateString() %><br>
+          <strong>Time Slot:</strong> <%= appointment.timeSlot %>
+        </li>
+      <% 
+          }
+        }); 
+      %>
+    </ul>
+
+    <a href="javascript:void(0);" id="todayLink">Today's Appointments</a>
+    <a href="javascript:void(0);" id="allLink">View Future Appointments</a>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const todayLink = document.getElementById("todayLink");
+      const allLink = document.getElementById("allLink");
+  
+      todayLink.addEventListener("click", function () {
+        document.querySelectorAll('.today').forEach(function(el) {
+          el.style.display = 'block';
+        });
+        document.querySelectorAll('.all').forEach(function(el) {
+          el.style.display = 'none';
+        });
+      });
+  
+      allLink.addEventListener("click", function () {
+        document.querySelectorAll('.today').forEach(function(el) {
+          el.style.display = 'none';
+        });
+        document.querySelectorAll('.all').forEach(function(el) {
+          el.style.display = 'block';
+        });
+      });
+    });
+  </script>
+
+  <a href="/dashboard">Go back</a>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Appointments</title>
+  <style>
+   body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-top: 20px;
+}
+
+section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #4caf50;
+    }
+
+    a:hover {
+      color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>View Appointments</h1>
+
+  <section>
+    <p><%= username %>, here are your appointments:</p>
+
+    <ul>
+      <% appointments.reverse().forEach(appointment => { %>
+        <li>
+          <strong>Doctor:</strong> <%= appointment.doctorname %><br>
+          <strong>Date:</strong> <%= appointment.date.toDateString() %><br>
+          <strong>Time Slot:</strong> <%= appointment.timeSlot %>
+        </li>
+      <% }); %>
+    </ul>
+  </section>
+
+  <a href="/dashboard">Go back</a>
+</body>
+</html>
