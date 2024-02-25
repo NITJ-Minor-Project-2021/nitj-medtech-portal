@@ -25,7 +25,7 @@ app.use(session({
   app.use(passport.session());
   
 
-  mongoose.connect('mongodb://127.0.0.1:27017/Authenticationdb');
+  mongoose.connect('mongodb+srv://harshith1019:tdxlkvbyui7FuYJH@cluster0.zurij9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0mongodb://127.0.0.1:27017/Authenticationdb');
 
 
 const userSchema=new mongoose.Schema({
