@@ -14,19 +14,10 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(session({
-  secret:"Our little secret.",
-  resave:false,
-  saveUninitialized:false
-  })
-  )
-  
-  app.use(passport.initialize());
-  app.use(passport.session());
-  
-
-  mongoose.connect('mongodb+srv://harshith1019:tdxlkvbyui7FuYJH@cluster0.zurij9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0mongodb://127.0.0.1:27017/Authenticationdb');
-
+app.use(session({ secret: process.env.SECRET, resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+mongoose.connect(process.env.MONGO_URI);
 
 const userSchema=new mongoose.Schema({
   email:String,
@@ -50,55 +41,129 @@ passport.deserializeUser(User.deserializeUser());
 //authentication
 
 app.get('/', function (req, res) {
-  // Find all guidelines for the given username
-
   if(req.isAuthenticated()){
     res.redirect("/dashboard");
-  }else{
-  Guidelines.find({})
-      .then(guidelines => {
-          // Reverse the order of guidelines before rendering the main page
-          const reversedGuidelines = guidelines.reverse();
-          res.render('main', { guidelines: reversedGuidelines });
+  } else {
+    // Fetch guidelines, doctors, camp details, and hospitals
+    Promise.all([Guidelines.find({}), Doctor.find({}), Camp.find({}), Hospital.find({})])
+      .then(([guidelines, doctors, camps, hospitals]) => {
+        // Reverse the order of guidelines before rendering the main page
+        const reversedGuidelines = guidelines.reverse();
+        // Get current date
+        const currentDate = new Date();
+        // Separate upcoming and past camps
+        const upcomingCamps = [];
+        const pastCamps = [];
+        camps.forEach(camp => {
+          if (camp.campDate > currentDate) {
+            upcomingCamps.push(camp);
+          } else {
+            pastCamps.push(camp);
+          }
+        });
+        // Sort upcoming camps by date
+        upcomingCamps.sort((a, b) => a.campDate - b.campDate);
+        // Combine upcoming and past camps
+        const sortedCamps = upcomingCamps.concat(pastCamps);
+        res.render('main', { guidelines: reversedGuidelines, doctors: doctors, camps: sortedCamps, hospitals: hospitals });
       })
       .catch(err => {
-          console.error(err);
-          res.status(500).send('Internal Server Error');
-      });}
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+      });
+  }
 });
 
 
 
 
 
-app.get("/dashboard",function(req,res){
-  if(req.isAuthenticated()){
-    Guidelines.find({})
-      .then(guidelines => {
 
-          // Reverse the order of guidelines before rendering the dashboard page
-          const reversedGuidelines = guidelines.reverse();
 
-          User.findOne({ username: req.user.username}).then(function(authenticatedUser){
+
+
+
+
+
+
+
+
+app.use(function(req, res, next) {
+  Doctor.find({})
+    .then(doctors => {
+      // Store doctors in res.locals for access in templates
+      res.locals.doctors = doctors;
+      next();
+    })
+    .catch(err => {
+      console.log("Error fetching doctors:", err);
+      next(err); // Pass error to error handling middleware
+    });
+});
+
+
+// Route to render dashboard for patients
+
+
+app.get("/dashboard", function(req, res) {
+  if (req.isAuthenticated()) {
+    // Fetch guidelines, doctors, camps, and feedback
+    Promise.all([Guidelines.find({}), Doctor.find({}), Camp.find({}), Feedback.find({}).sort({ createdAt: -1 }), Hospital.find({})])
+      .then(([guidelines, doctors, camps, feedbacks, hospitals]) => {
+        // Reverse the order of guidelines before rendering the dashboard page
+        const reversedGuidelines = guidelines.reverse();
+        // Get current date
+        const currentDate = new Date();
+        // Separate upcoming and past camps
+        const upcomingCamps = [];
+        const pastCamps = [];
+        camps.forEach(camp => {
+          if (camp.campDate > currentDate) {
+            upcomingCamps.push(camp);
+          } else {
+            pastCamps.push(camp);
+          }
+        });
+        // Sort upcoming camps by date
+        upcomingCamps.sort((a, b) => a.campDate - b.campDate);
+        // Combine upcoming and past camps
+        const sortedCamps = upcomingCamps.concat(pastCamps);
+        // Render dashboard based on user role
+        let disease_name = "";
+        User.findOne({ username: req.user.username })
+          .then(function(authenticatedUser) {
             if (authenticatedUser) {
               const userRole = authenticatedUser.role;
               if (userRole === 'patient') {
-                res.render("loggedpatient",{ guidelines: reversedGuidelines});
+                res.render("loggedpatient", { guidelines: reversedGuidelines, doctors: res.locals.doctors, camps: sortedCamps, hospitals: hospitals, disease: disease_name });
               } else if (userRole === 'doctor') {
-                res.render("loggeddoctor",{ guidelines: reversedGuidelines});
+                res.render("loggeddoctor", { guidelines: reversedGuidelines, doctors: res.locals.doctors, camps: sortedCamps, hospitals: hospitals });
               } else {
-                res.render("loggedadmin",{ guidelines: reversedGuidelines});
+                res.render("loggedadmin", { guidelines: reversedGuidelines, doctors: res.locals.doctors, camps: sortedCamps, feedbacks: feedbacks, hospitals: hospitals });
               }
-          }}).catch(err => {
-            console.log(err);
+            }
+          })
+          .catch(err => {
+            console.log("Error finding user:", err);
             res.redirect("/");
+          });
       })
-  })
-}
-  else{
-      res.redirect("/");
+      .catch(err => {
+        console.error("Error fetching data:", err);
+        res.redirect("/");
+      });
+  } else {
+    res.redirect("/");
   }
-})
+});
+
+
+
+
+
+
+
+
 
 
 
@@ -169,6 +234,43 @@ const guidelinesStorage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 const guidelinesUpload = multer({ storage: guidelinesStorage });
+
+//camps details
+
+const campSchema = new mongoose.Schema({
+  campName: {
+    type: String,
+    required: true
+  },
+  campDate: {
+    type: Date,
+    required: true
+  }
+});
+
+const Camp = mongoose.model('Camp', campSchema);
+
+
+app.post('/submitcamp', (req, res) => {
+  const name=req.body.campname;
+  const date=req.body.campdate;
+
+  const newCamp = new Camp({
+    campName:name,
+    campDate:date
+  });
+
+  newCamp.save()
+    .then(() => {
+      console.log('Camp saved successfully');
+      res.redirect('/dashboard');
+    })
+    .catch((err) => {
+      console.error('Error saving camp:', err);
+      res.status(500).send('Error saving camp');
+    });
+});
+
 
 
 
@@ -256,8 +358,118 @@ app.get('/prescriptions', async (req, res) => {
 });
 
 
+// var disease_name="";
+
+//prediction disease
+
+app.post('/predictions', function(req, res) {
+  console.log(req.body);
+
+  const { spawn } = require("child_process");
+  const childPython = spawn("python", ["pred.py", req.body.symptom1, req.body.symptom2, req.body.symptom3, req.body.symptom4, req.body.symptom5]);
+  let jsonData = "";
+
+  childPython.stdout.on("data", (data) => {
+    jsonData += data.toString(); // Accumulate data as it comes
+    console.log(`stdout : ${data}`);
+  });
+
+  childPython.stderr.on("data", (data) => {
+    console.error(`stderr : ${data}`);
+  });
+
+  childPython.on("close", async (code) => {
+    console.log(`child process exited with code :  ${code}`);
+  disease_name = jsonData;
+    // Send the predicted disease back to the client
+    res.json({ disease: disease_name });
+  });
+});
 
 
+
+//add hospital
+const hospitalSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  site: {
+    type: String,
+    required: true
+  },
+  location: {
+    type: String,
+    required: true
+  },
+});
+
+
+const Hospital= mongoose.model('Hospital', hospitalSchema);
+
+app.post('/add_hospital', (req, res) => {
+  const { name, site, location } = req.body;
+
+  // Create a new hospital instance
+  const newHospital = new Hospital({
+    name,
+    site,
+    location,
+  });
+
+  // Save the hospital instance to the database
+  newHospital.save()
+    .then((hospital) => {
+      console.log('Hospital saved successfully:', hospital);
+      res.redirect("/dashboard");
+    })
+    .catch((error) => {
+      console.error('Error saving hospital:', error);
+      res.status(500).send('Internal Server Error');
+    });
+});
+
+
+
+
+
+//feedback
+
+const feedbackSchema = new mongoose.Schema({
+  feedback: {
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+// Create a model using the schema
+const Feedback = mongoose.model('Feedback', feedbackSchema);
+
+app.post('/submitFeedback', (req, res) => {
+  // Extract feedback from the request body
+  const { feedback } = req.body;
+
+  // Create a new Feedback object
+  const newFeedback = new Feedback({
+    feedback: feedback
+  });
+
+  // Save the feedback to the database
+  newFeedback.save()
+    .then(() => {
+      // Feedback saved successfully
+      res.redirect('/dashboard');
+    })
+    .catch(err => {
+      // Error occurred while saving feedback
+      console.error('Error saving feedback:', err);
+      res.status(500).json({ error: 'An error occurred while saving feedback.' });
+    });
+});
 
 
 
@@ -406,6 +618,8 @@ const doctorSchema=new mongoose.Schema({
    doctorname: String,
    doctorid:String,
    availability: String,
+   qualification:String,
+   designation:String,
    timeSlots: [String]
 });
 
@@ -417,15 +631,19 @@ app.post('/addDoctor', function(req, res) {
         const username = req.body.id;
    const email=req.body.email;
    const password=req.body.password;
-   const role=req.body.role;
+   const role="doctor";
    const name=req.body.name;
    let l="available";
+   const qualification=req.body.qualification;
+   const designation=req.body.designation;
 
    const newDoctor=new Doctor({
      doctoremail:email,
      doctorname:name,
      availability:l,
      doctorid:username,
+     designation:designation,
+     qualification:qualification,
      timeSlots: ['10:00 AM - 11:00 AM', '2:00 PM - 3:00 PM', '5:00 PM - 6:00 PM']
    }) 
    
