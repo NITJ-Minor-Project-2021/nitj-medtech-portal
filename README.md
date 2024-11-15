@@ -57,13 +57,13 @@ Make sure you have the following installed on your system:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Lavishgurjar85/College-Dispensary.git
+   git clone hhttps://github.com/NITJ-Minor-Project-2021/nitj-medtech-portal
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd medical-management-system
+   cd nitj-medtech-portal
    ```
 
 3. Install the necessary dependencies:
