@@ -83,44 +83,14 @@ Replace `yourSecretKey` with a secure key of your choice.
 
 ## Usage
 
-1. Start the MongoDB server:
+Start the Node.js server:
 
-   ```bash
-   mongod
-   ```
-
-2. Start the Node.js server:
-
-   ```bash
-   node app.js
-   ```
+```bash
+node app.js
+```
 
 3. Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to use the application.
-
-## API Endpoints
-
-Here is a summary of the key endpoints available in the application:
-
-| Method | Endpoint             | Description                       |
-| ------ | -------------------- | --------------------------------- |
-| GET    | `/api/patients`      | Retrieve patient list             |
-| POST   | `/api/patients`      | Register a new patient            |
-| GET    | `/api/doctors`       | Retrieve doctor list              |
-| POST   | `/api/appointments`  | Book an appointment               |
-| GET    | `/api/hospitals`     | Retrieve nearby hospitals         |
-| POST   | `/api/prescriptions` | Save a new prescription           |
-| POST   | `/api/feedback`      | Submit user feedback              |
-| POST   | `/api/files`         | Upload medical files or reports   |
-| POST   | `/api/predict`       | Predict disease based on symptoms |
 
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-This README file provides a clear, organized overview of your Medical Management System project. Let me know if you need further customization!
