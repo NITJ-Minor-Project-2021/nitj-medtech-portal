@@ -1,10 +1,4 @@
-# nitj-medtech-portal
-
-Here’s a formatted README file based on your provided details:
-
----
-
-# Medical Management System
+# NITJ MedTech Portal
 
 ## Table of Contents
 
@@ -15,9 +9,7 @@ Here’s a formatted README file based on your provided details:
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
 - [Usage](#usage)
-- [API Endpoints](#api-endpoints)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -57,7 +49,7 @@ Make sure you have the following installed on your system:
 1. Clone the repository:
 
    ```bash
-   git clone hhttps://github.com/NITJ-Minor-Project-2021/nitj-medtech-portal
+   git clone hhttps://github.com/NITJ-Minor-Project-2021/nitj-medtech-portal.git
    ```
 
 2. Navigate to the project directory:
@@ -83,13 +75,13 @@ Replace `yourSecretKey` with a secure key of your choice.
 
 ## Usage
 
-Start the Node.js server:
+1. Start the Node.js server:
 
-```bash
-node app.js
-```
+   ```bash
+   node app.js
+   ```
 
-3. Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to use the application.
+2. Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to use the application.
 
 ## Contributing
 
