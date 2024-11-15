@@ -13,7 +13,7 @@
 
 ## Introduction
 
-The **Medical Management System** is a web application aimed at improving the management of medical data for colleges or hospitals. This application enables efficient handling of user authentication, doctor appointments, medical camps, prescriptions, hospitals, and more. It leverages Node.js, Express, MongoDB, Passport.js for authentication, and modern web technologies to offer a robust solution for healthcare data management.
+The Project is based on **Medical Management System** which is a web application aimed at improving the management of medical data for colleges or hospitals. This application enables efficient handling of user authentication, doctor appointments, medical camps, prescriptions, hospitals, and more. It leverages Node.js, Express, MongoDB, Passport.js for authentication, and modern web technologies to offer a robust solution for healthcare data management.
 
 ## Features
 
